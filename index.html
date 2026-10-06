@@ -1,0 +1,1160 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Eriko AI</title>
+<meta name="description" content="Eriko combines strategy, engineering and AI-native delivery to take complex ideas from blueprint through to implementation.">
+<style>[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: editorial 12-column grid; light paper sections alternate with navy "system" sections; diagrams carry the concepts, prose stays short. Single deliberate light brand palette. */
+:root{
+  --paper:#fdf8f1;        /* warm off-white page ground */
+  --paper-2:#f7eddf;      /* lifted warm band */
+  --peach:#fce5c6;        /* brand peach */
+  --navy:#03285d;         /* brand navy, also primary ink */
+  --navy-deep:#021c45;
+  --navy-line:#1d4580;
+  --red:#eb2701;          /* brand red, used sparingly */
+  --red-ink:#c42000;      /* red for small text on light grounds */
+  --red-soft:#ffb39f;     /* red for small text on navy */
+  --ink:#03285d;
+  --ink-soft:#4b6285;
+  --ink-mute:#7d8ca5;
+  --on-dark:#fdf3e4;
+  --on-dark-soft:#a9bddb;
+  --rule:#e8d9c3;
+  --rule-strong:#d4bf9f;
+  --white:#ffffff;
+  --ok:#1f7a4d;
+
+  --font-sans:"Poppins",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+
+  --max:1280px;
+  --gutter:clamp(20px,4.5vw,56px);
+  --section:clamp(96px,12vw,176px);
+
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-sans);font-size:17px;line-height:1.7;font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+h1,h2,h3,h4,p,ol,ul,dl,dd,figure{margin:0}
+ol,ul{padding:0;list-style:none}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+h1,h2,h3{font-weight:600;line-height:1.05;letter-spacing:-.035em;text-wrap:balance}
+::selection{background:var(--peach);color:var(--navy)}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:2px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+
+.container{width:100%;max-width:calc(var(--max) + var(--gutter)*2);padding-inline:var(--gutter);margin-inline:auto}
+.section{padding-block:var(--section)}
+.band{background:var(--paper-2)}
+.dark{background:var(--navy);color:var(--on-dark)}
+.peach{background:var(--peach)}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* Type scale */
+.label{font-size:15px;font-weight:600;color:var(--red-ink);display:inline-block}
+.dark .label{color:var(--red-soft)}
+.display{font-size:clamp(3.1rem,9.2vw,8rem);line-height:.96;letter-spacing:-.05em;font-weight:600}
+.h2{font-size:clamp(2.4rem,5.6vw,4.75rem);line-height:1;letter-spacing:-.045em}
+.h3{font-size:clamp(1.5rem,2.4vw,2rem);line-height:1.12;letter-spacing:-.03em}
+.lede{font-size:clamp(1.15rem,1.65vw,1.4rem);line-height:1.55;color:var(--ink-soft);font-weight:400;max-width:44ch}
+.dark .lede{color:var(--on-dark-soft)}
+.body{color:var(--ink-soft);max-width:56ch}
+.dark .body{color:var(--on-dark-soft)}
+.accent{color:var(--red)}
+
+/* Section head: label + headline left, lede right on wide screens */
+.head{display:grid;gap:28px;margin-bottom:clamp(56px,7vw,104px)}
+@media (min-width:980px){.head--split{grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:end;column-gap:64px}}
+.head .label{margin-bottom:4px}
+.head__title{display:grid;gap:24px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:12px;padding:17px 28px;font:600 16px/1 var(--font-sans);letter-spacing:-.01em;border:1.5px solid transparent;border-radius:2px;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s}
+.btn-primary{background:var(--red);color:var(--white)}
+.btn-primary:hover{background:var(--red-ink)}
+.btn-secondary{border-color:var(--navy);color:var(--navy);background:transparent}
+.btn-secondary:hover{background:var(--navy);color:var(--on-dark)}
+.btn-cream{background:var(--peach);color:var(--navy)}
+.btn-cream:hover{background:var(--white)}
+.btn-ghost-dark{border-color:var(--navy-line);color:var(--on-dark)}
+.btn-ghost-dark:hover{border-color:var(--on-dark-soft)}
+.arrow{transition:transform .2s;flex:none}
+.btn:hover .arrow,.inline-link:hover .arrow{transform:translateX(4px)}
+.inline-link{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:16px;color:var(--navy);border-bottom:1.5px solid var(--red);padding-bottom:3px}
+.dark .inline-link{color:var(--on-dark)}
+
+/* Header */
+.site-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--paper);border-bottom:1px solid var(--rule)}
+.site-header__inner{display:flex;align-items:center;gap:24px;height:76px}
+.wordmark{height:30px;width:auto}
+.site-nav{display:none;align-items:center;gap:36px;margin-left:auto}
+.site-nav a{font-size:15px;font-weight:500;color:var(--navy);padding-block:6px;border-bottom:1.5px solid transparent}
+.site-nav a:hover{border-bottom-color:var(--red)}
+.site-nav .btn{padding:13px 22px;font-size:15px;border-bottom:1.5px solid transparent}
+.site-nav .btn:hover{border-bottom-color:transparent}
+.nav-toggle{margin-left:auto;width:44px;height:44px;display:inline-flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;background:none;border:0;cursor:pointer}
+.nav-toggle span{display:block;width:24px;height:1.5px;background:var(--navy);transition:transform .2s,opacity .2s}
+.nav-toggle[aria-expanded=true] span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+.nav-toggle[aria-expanded=true] span:nth-child(2){opacity:0}
+.nav-toggle[aria-expanded=true] span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+@media (min-width:1040px){.site-nav{display:flex}.nav-toggle{display:none}}
+.mobile-nav{background:var(--paper);border-top:1px solid var(--rule);padding-block:8px 32px}
+.mobile-nav a{display:block;padding:18px 0;font-size:22px;font-weight:500;letter-spacing:-.02em;border-bottom:1px solid var(--rule)}
+.mobile-nav .btn{display:flex;justify-content:center;margin-top:24px;border-bottom:0;font-size:17px}
+
+/* Hero */
+.hero{padding-block:clamp(72px,10vw,150px) clamp(72px,8vw,120px)}
+.hero__grid{display:grid;gap:clamp(56px,7vw,88px)}
+@media (min-width:1100px){.hero__grid{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:end;column-gap:72px}}
+.hero__title{margin-block:0 36px}
+.hero__title .accent{display:block}
+.hero__actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:44px}
+.hero__caps{margin-top:clamp(72px,9vw,120px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--rule-strong)}
+@media (min-width:860px){.hero__caps{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.hero__caps li{padding:22px 20px 0 0;font-size:15px;font-weight:500;display:grid;gap:6px;min-width:0}
+/* Eriko product UI (illustrative screens). One shell, shared parts: top bar, avatars, status pills, activity rows */
+.ui{background:var(--white);border:1px solid var(--rule-strong);border-radius:6px;box-shadow:0 1px 0 var(--rule),0 24px 48px -32px rgba(3,40,93,.35);overflow:hidden;min-width:0;font-size:13.5px;line-height:1.45;color:var(--navy);text-align:left}
+figure:has(> .ui){min-width:0}
+.ui__bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;padding:10px 16px;border-bottom:1px solid var(--rule);background:var(--paper);font-size:12px;color:var(--ink-mute);min-width:0}
+.ui__app{display:inline-flex;align-items:center;gap:8px;font-weight:600;color:var(--navy);white-space:nowrap}
+.ui__app i{width:9px;height:9px;border-radius:50%;background:var(--red);box-shadow:0 0 0 3px var(--peach)}
+.ui__crumbs{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ui__crumbs b{font-weight:500;color:var(--ink-soft)}
+.ui__bar .st{margin-left:auto}
+.ui__body{padding:18px 18px 16px}
+.ui__foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;padding:11px 18px;border-top:1px solid var(--rule);background:var(--paper);font-family:var(--font-mono);font-size:11px;color:var(--ink-mute)}
+.ui__eyebrow{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mute)}
+.ui__h{font-size:18px;font-weight:600;letter-spacing:-.02em;line-height:1.25;margin-top:4px;color:var(--navy)}
+.ui__sub{font-size:12.5px;color:var(--ink-soft);margin-top:4px}
+.ui__sub b{font-weight:600;color:var(--navy)}
+
+/* status pills */
+.st{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;line-height:1;padding:5px 8px;border-radius:3px;white-space:nowrap;border:1px solid var(--rule-strong);color:var(--ink-soft);background:var(--white)}
+.st::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.st--wait{color:var(--red-ink);border-color:#f2b3a3;background:#fff3ef}
+.st--ok{color:var(--ok);border-color:#b5dbc6;background:#f1f9f4}
+.st--prog{color:var(--navy);border-color:#b9c7dc;background:#f2f6fb}
+.st--fail{color:#a5320f;border-color:#efc0ad;background:#fdf1ec}
+
+/* avatars: agents use the Eriko mascot, people use initials */
+.av{width:28px;height:28px;border-radius:50%;flex:none;overflow:hidden;background:var(--peach);display:grid;place-items:center;box-shadow:0 0 0 1.5px var(--white),0 0 0 2.5px var(--rule-strong)}
+.av img{width:100%;height:100%;object-fit:cover;display:block}
+.av--human{background:var(--navy);color:var(--on-dark);font-size:10.5px;font-weight:600;letter-spacing:.02em;box-shadow:0 0 0 1.5px var(--white),0 0 0 2.5px var(--navy)}
+.av--sm{width:22px;height:22px;font-size:9px}
+
+/* activity feed */
+.feed{display:grid;margin-top:14px;position:relative}
+.feed::before{content:"";position:absolute;left:13.5px;top:14px;bottom:14px;width:1px;background:var(--rule)}
+.act{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;padding:8px 0;position:relative}
+.act__who{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;font-size:12px}
+.act__who b{font-weight:600;color:var(--navy)}
+.act__who time{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-mute);margin-left:auto}
+.act__what{font-size:12.5px;color:var(--ink-soft);margin-top:2px}
+.act__what em{font-style:normal;color:#a5320f;font-weight:500}
+.chip{display:inline-block;font-family:var(--font-mono);font-size:10.5px;padding:2px 6px;border:1px solid var(--rule);border-radius:3px;background:var(--paper);color:var(--ink-soft);margin-left:4px;white-space:nowrap}
+
+/* hand-off to a person */
+.handoff{margin-top:12px;display:grid;grid-template-columns:minmax(0,1fr) 72px;gap:12px;align-items:end;padding:14px 14px 0 14px;border:1px solid #f2b3a3;background:#fff8f4;border-radius:4px}
+.handoff__text{padding-bottom:14px;min-width:0}
+.handoff__line{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-soft)}
+.handoff__line b{color:var(--navy);font-weight:600}
+.handoff__ask{font-size:13.5px;font-weight:600;letter-spacing:-.01em;margin:8px 0 12px;color:var(--navy)}
+.handoff__btns{display:flex;flex-wrap:wrap;gap:8px}
+.ubtn{display:inline-block;font-size:12px;font-weight:600;padding:7px 11px;border-radius:3px;border:1px solid var(--navy);color:var(--navy);background:var(--white)}
+.ubtn--primary{background:var(--red);border-color:var(--red);color:var(--white)}
+.handoff__pose{align-self:end;width:72px;height:auto;display:block}
+
+/* release pipeline */
+.pipe{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:14px}
+.pipe__step{border:1px solid var(--rule);border-radius:4px;padding:9px 10px;background:var(--paper);min-width:0;position:relative}
+.pipe__step b{display:block;font-size:12px;font-weight:600;color:var(--navy)}
+.pipe__step span{display:block;font-family:var(--font-mono);font-size:10.5px;color:var(--ink-mute);margin-top:2px}
+.pipe__step--done{border-color:#b5dbc6;background:#f4faf6}
+.pipe__step--now{border-color:var(--navy);background:var(--white);box-shadow:inset 0 2px 0 var(--navy)}
+.pipe__step--gate{border-style:dashed;border-color:#f2b3a3;background:#fff8f4}
+.pipe__step--gate span{color:var(--red-ink)}
+
+/* tables */
+.utable{width:100%;border-collapse:collapse;margin-top:14px;font-size:12.5px}
+.utable th{text-align:left;font-family:var(--font-mono);font-weight:500;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mute);padding:6px 8px 6px 0;border-bottom:1px solid var(--rule)}
+.utable td{padding:8px 8px 8px 0;border-bottom:1px solid #f3eadc;vertical-align:middle}
+.utable td.id{font-family:var(--font-mono);font-size:11px;color:var(--ink-soft);white-space:nowrap}
+.utable td.num{font-family:var(--font-mono);font-size:11px;color:var(--ink-soft);font-variant-numeric:tabular-nums;white-space:nowrap}
+.utable tr.is-sel td{background:#fff8f4}
+.comment{margin-top:14px;display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;padding:12px;border:1px solid var(--rule);border-left:2px solid var(--red);border-radius:3px;background:var(--paper)}
+.comment p{font-size:12.5px;color:var(--navy);margin-top:3px}
+.comment small{display:block;font-family:var(--font-mono);font-size:10.5px;color:var(--ink-mute);margin-top:6px}
+
+/* Story Architect */
+.sa{display:grid;grid-template-columns:minmax(0,1fr)}
+@media (min-width:640px){.sa{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}}
+.sa__side{padding:16px;border-bottom:1px solid var(--rule);background:var(--paper)}
+@media (min-width:640px){.sa__side{border-bottom:0;border-right:1px solid var(--rule)}}
+.intent{padding:10px 12px;background:var(--white);border:1px solid var(--rule);border-radius:4px;margin-top:6px}
+.intent p{font-size:13px;font-weight:600;line-height:1.35;color:var(--navy)}
+.intent small{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:11px;color:var(--ink-mute)}
+.stories{margin-top:14px;display:grid;gap:2px}
+.stories li{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:6px;align-items:center;padding:6px 8px;border-radius:3px;font-size:12px;color:var(--ink-soft)}
+.stories li .n{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-mute)}
+.stories li.on{background:var(--white);color:var(--navy);font-weight:600;box-shadow:inset 2px 0 0 var(--red),0 0 0 1px var(--rule)}
+.stories .mk{width:7px;height:7px;border-radius:50%;background:var(--ok)}
+.stories .mk--draft{background:transparent;border:1.5px solid var(--ink-mute)}
+.stories .mk--rev{background:var(--red)}
+.sa__main{padding:16px 18px;min-width:0}
+.us{margin-top:10px;font-size:13px;line-height:1.5;color:var(--navy);padding:10px 12px;background:var(--paper);border-radius:3px}
+.ac{margin-top:12px;display:grid;gap:6px}
+.ac li{display:grid;grid-template-columns:30px minmax(0,1fr);gap:6px;font-size:12px;color:var(--ink-soft);line-height:1.45}
+.ac li b{font-family:var(--font-mono);font-size:10.5px;font-weight:500;color:var(--red-ink);padding-top:1px}
+.ac li strong{color:var(--navy);font-weight:600}
+.rules{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
+.sa__foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin-top:14px;padding-top:12px;border-top:1px solid var(--rule);font-size:12px;color:var(--ink-soft)}
+.sa__foot b{color:var(--navy);font-weight:600}
+.sa__foot > span:not(.av){flex:1;min-width:0}
+.sa__foot .st{margin-left:auto}
+@media (max-width:620px){.utable .hide-sm{display:none}.pipe{grid-template-columns:minmax(0,1fr)}}
+
+.caption{margin-top:14px;font-size:13.5px;color:var(--ink-mute)}
+.dark .caption{color:var(--on-dark-soft)}
+
+/* Journey: 3 stages + spine */
+.journey{display:grid;gap:0}
+@media (min-width:900px){.journey{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.stage{position:relative;padding:36px 0 40px;border-top:2px solid var(--navy);min-width:0}
+@media (min-width:900px){.stage{padding:40px 40px 48px 0}.stage+.stage{padding-left:40px;border-left:1px solid var(--rule)}}
+.stage h3{font-size:clamp(1.6rem,2.6vw,2.2rem);margin:0 0 18px}
+.stage p{color:var(--ink-soft);max-width:38ch}
+.stage ul{margin-top:28px;border-top:1px solid var(--rule-strong);max-width:38ch}
+.stage ul li{font-size:15px;font-weight:500;color:var(--navy);padding:11px 0;border-bottom:1px solid var(--rule)}
+@media (min-width:900px){.stage+.stage::before{content:"";position:absolute;top:-8px;left:-8px;width:14px;height:14px;border-radius:50%;background:var(--red);border:3px solid var(--paper-2)}}
+.spine{display:flex;align-items:center;gap:18px;padding:22px 28px;background:var(--navy);color:var(--on-dark);font-weight:500;font-size:clamp(1rem,1.5vw,1.2rem);letter-spacing:-.01em}@media (max-width:640px){.spine{flex-direction:column;align-items:flex-start;gap:8px}}
+
+/* Statement + lanes */
+.statement{font-size:clamp(2rem,4.6vw,3.9rem);line-height:1.08;letter-spacing:-.04em;font-weight:500;max-width:22ch;margin-top:32px}
+.statement em{font-style:normal;color:var(--red)}
+.statement span{color:var(--ink-mute)}
+.compare{display:grid;gap:56px;margin-top:clamp(72px,9vw,128px)}
+.compare__col{min-width:0}
+@media (min-width:1000px){.compare{grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:0 72px}.compare__col{display:grid;grid-template-rows:subgrid;grid-row:span 5;align-content:start}}
+.compare__col h3{font-size:20px;letter-spacing:-.02em;margin:14px 0 10px}
+.compare__col > p{color:var(--ink-soft);font-size:15.5px;max-width:44ch}
+.lanes{margin-top:28px;border-top:1px solid var(--rule-strong);display:grid;align-self:start}
+.lane{display:grid;grid-template-columns:120px minmax(0,1fr);align-items:center;gap:16px;min-height:46px;border-bottom:1px solid var(--rule)}
+.lane__name{font-size:13px;font-weight:500;color:var(--ink-soft)}
+.lane__track{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:4px;align-items:center;height:100%;position:relative}
+.bar{height:16px;border-radius:1px;background:var(--navy)}
+.bar--soft{background:#c9d4e4}
+.bar--red{background:var(--red)}
+.bar--peach{background:var(--peach);border:1px solid var(--rule-strong)}
+.gate{width:14px;height:14px;background:var(--red);transform:rotate(45deg);justify-self:center}
+.lanes__legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:16px;font-size:12.5px;color:var(--ink-soft)}
+.lanes__legend span{display:inline-flex;align-items:center;gap:8px}
+.lanes__legend i{display:inline-block;width:14px;height:8px;background:var(--navy)}
+.lanes__legend i.r{width:10px;height:10px;background:var(--red);transform:rotate(45deg)}
+.lanes__legend i.s{background:#c9d4e4}
+.lanes__legend i.p{background:var(--peach);border:1px solid var(--rule-strong)}
+@media (max-width:560px){.lane{grid-template-columns:84px minmax(0,1fr)}}
+
+.agent-work{margin-top:clamp(72px,9vw,120px);display:grid;gap:40px}
+@media (min-width:1000px){.agent-work{grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:72px;align-items:start}}
+.agent-work h3{font-size:clamp(1.4rem,2.2vw,1.85rem);letter-spacing:-.03em;line-height:1.2;max-width:18ch}
+.duties{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--rule-strong)}
+@media (min-width:700px){.duties{grid-template-columns:repeat(5,minmax(0,1fr))}}
+.duties li{padding:18px 14px 18px 0;border-bottom:1px solid var(--rule);font-weight:500;font-size:15px;line-height:1.3;min-width:0}
+.duties li .tag{display:block;font-size:13.5px;font-weight:600;color:var(--ink-mute);margin-bottom:8px}
+.pair{display:grid;gap:28px 56px;margin-top:48px}
+@media (min-width:800px){.pair{grid-template-columns:1fr 1fr}}
+.pair p{color:var(--ink-soft);max-width:46ch}
+.pair p strong{color:var(--navy);font-weight:600}
+
+/* Position (navy) */
+.position{display:grid;gap:48px}
+@media (min-width:1000px){.position{grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:88px;align-items:end}}
+.position h2{margin-top:28px;max-width:13ch}
+.position__intro{font-size:clamp(1.2rem,1.8vw,1.5rem);line-height:1.5;color:var(--on-dark);max-width:34ch}
+.formula{margin-top:clamp(64px,8vw,104px);display:grid;gap:0;border-top:1px solid var(--navy-line);border-bottom:1px solid var(--navy-line)}
+@media (min-width:900px){.formula{grid-template-columns:1fr auto 1fr auto 1fr auto 1.15fr;align-items:stretch}}
+.formula__term{padding:32px 0;min-width:0}
+@media (min-width:900px){.formula__term{padding:40px 28px 40px 0}}.formula__term h3{font-size:clamp(1.25rem,1.9vw,1.6rem);letter-spacing:-.025em;margin-top:10px;line-height:1.2}
+.formula__op{display:flex;align-items:center;justify-content:flex-start;font-size:32px;font-weight:300;color:var(--red-soft);padding:0 24px 0 0}
+@media (max-width:899px){.formula__op{padding:0;line-height:1;border-top:1px solid var(--navy-line);padding-top:12px}}
+.formula__result{padding:32px 0;min-width:0}
+@media (min-width:900px){.formula__result{padding:40px 0 40px 28px;border-left:1px solid var(--navy-line)}}
+.formula__result h3{font-size:clamp(1.5rem,2.4vw,2.1rem);color:var(--on-dark);letter-spacing:-.03em;line-height:1.1;margin-top:10px}.position__foot{display:grid;gap:24px;margin-top:48px}
+@media (min-width:900px){.position__foot{grid-template-columns:1fr 1fr;gap:72px}}
+.position__foot p{color:var(--on-dark-soft);max-width:48ch}
+.position__foot p:last-child{color:var(--on-dark)}
+
+/* Four responsibilities framework */
+.quad{position:relative;display:grid;border-top:1px solid var(--rule-strong)}
+@media (min-width:860px){.quad{grid-template-columns:1fr 1fr;border-top:0}}
+.quad__cell{padding:44px 0;border-bottom:1px solid var(--rule-strong);min-width:0}
+@media (min-width:860px){
+  .quad__cell{padding:56px 72px 64px 0}
+  .quad__cell:nth-child(2n){padding:56px 0 64px 72px;border-left:1px solid var(--rule-strong)}
+  .quad__cell:nth-child(n+3){border-bottom:0}
+}
+.quad__q{font-size:clamp(1.9rem,3.6vw,3rem);letter-spacing:-.04em;line-height:1.02;font-weight:600}
+.quad__term{margin-bottom:20px;font-size:14.5px;font-weight:600;color:var(--red-ink)}
+.quad__cell p{margin-top:20px;color:var(--ink-soft);max-width:44ch}
+.quad__hub{display:none}
+@media (min-width:860px){.quad__hub{display:grid;place-items:center;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:150px;height:150px;border-radius:50%;background:var(--navy);color:var(--on-dark);text-align:center;font-size:14px;font-weight:600;line-height:1.3;padding:20px;box-shadow:0 0 0 12px var(--paper)}}
+
+/* Delivery flow diagram (navy) */
+.flow{overflow-x:auto;padding-bottom:8px}
+.flow__inner{min-width:0}
+.phases{display:none}
+.track{display:grid;gap:0;position:relative}
+.node{position:relative;padding:0 0 30px 34px;min-width:0}
+.node::before{content:"";position:absolute;left:0;top:4px;width:13px;height:13px;border-radius:50%;border:2px solid var(--on-dark-soft);background:var(--navy)}
+.node::after{content:"";position:absolute;left:7px;top:20px;bottom:0;width:1px;background:var(--navy-line)}
+.node:last-child::after{display:none}
+.node .tag{display:block;font-size:13.5px;font-weight:600;color:var(--on-dark-soft)}
+.node strong{display:block;font-size:17px;font-weight:600;line-height:1.25;letter-spacing:-.015em;margin-top:6px;color:var(--on-dark)}
+.node--key::before{background:var(--red);border-color:var(--red);box-shadow:0 0 0 6px rgba(235,39,1,.22)}
+.node--key strong{color:var(--red-soft)}
+.node--end::before{background:var(--on-dark);border-color:var(--on-dark)}
+.loop{display:none}
+.loop-mobile{margin:4px 0 0 34px;padding:12px 16px;border:1px dashed var(--red-soft);font-size:13.5px;color:var(--on-dark-soft)}
+@media (min-width:980px){
+  .phases{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:0 16px;margin-bottom:36px}
+  .phase{border-top:1px solid var(--navy-line);padding-top:14px;font-size:13.5px;font-weight:500;color:var(--on-dark-soft)}
+  .phase--key{border-top:2px solid var(--red);color:var(--red-soft)}
+  .track{grid-template-columns:repeat(8,minmax(0,1fr));gap:0 16px}
+  .track::before{content:"";position:absolute;left:0;right:0;top:10px;height:1px;background:var(--navy-line)}
+  .node{padding:44px 8px 0 0}
+  .node::before{top:3px;left:0;width:15px;height:15px}
+  .node::after{display:none}
+  .node strong{font-size:16px}
+  .loop{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:0 16px;margin-top:28px}
+  .loop__shape{grid-column:3 / 7;height:44px;border:1.5px dashed var(--red-soft);border-top:0;border-radius:0 0 10px 10px;position:relative;margin-left:7px}
+  .loop__shape::before{content:"";position:absolute;left:-6px;top:-4px;width:9px;height:9px;border-left:1.5px solid var(--red-soft);border-top:1.5px solid var(--red-soft);transform:rotate(45deg)}
+  .loop__label{grid-column:3 / 7;text-align:center;font-size:13.5px;color:var(--on-dark-soft);margin-top:12px}
+  .loop-mobile{display:none}
+}
+.notes{display:grid;gap:40px;margin-top:clamp(72px,8vw,112px);padding-top:clamp(48px,5vw,64px);border-top:1px solid var(--navy-line)}
+@media (min-width:760px){.notes{grid-template-columns:1fr 1fr;gap:48px 56px}}
+@media (min-width:1180px){.notes{grid-template-columns:repeat(4,1fr);gap:40px}}
+.note h3{font-size:24px;letter-spacing:-.03em;margin-bottom:6px}
+.note .lead{color:var(--on-dark);font-weight:500;font-size:16px;line-height:1.55;margin:16px 0 12px}
+.note p:not(.lead){color:var(--on-dark-soft);font-size:15px;line-height:1.65}
+.note__phase{font-size:14.5px;font-weight:600;color:var(--red-soft)}
+
+/* Products */
+.product{display:grid;gap:48px;padding-block:clamp(56px,7vw,96px);border-top:1px solid var(--rule-strong)}
+.product:first-of-type{border-top:0;padding-top:0}
+@media (min-width:1040px){.product{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:80px;align-items:center}.product--flip{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}.product--flip .product__text{order:2}}
+.product__text{min-width:0}
+.product__kind{font-size:14.5px;color:var(--ink-mute)}
+.product__name{font-size:clamp(2.6rem,5vw,4.25rem);letter-spacing:-.05em;line-height:1;margin:14px 0 22px}
+.product__text > p{color:var(--ink-soft);max-width:46ch}
+.product__text > p + p{margin-top:14px}
+.demo{margin-top:28px;padding:20px 0 0;border-top:1.5px solid var(--red);max-width:46ch}
+.demo p{color:var(--navy);font-weight:500;font-size:16px;line-height:1.55}
+
+/* Proof row */
+.proof-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px;margin-top:clamp(72px,9vw,120px);margin-bottom:32px}
+.proof-head h3{font-size:clamp(1.6rem,2.8vw,2.3rem);letter-spacing:-.035em}
+.proofs{display:grid;border-top:2px solid var(--navy)}
+@media (min-width:900px){.proofs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.proof{padding:32px 0 36px;border-bottom:1px solid var(--rule-strong);display:flex;flex-direction:column;min-width:0}
+@media (min-width:900px){.proof{padding:36px 36px 40px 0;border-bottom:0}.proof+.proof{padding-left:36px;border-left:1px solid var(--rule-strong)}}
+.proof .tag{font-size:14px;font-weight:600;color:var(--ink-mute)}
+.proof h4{font-size:22px;font-weight:600;letter-spacing:-.025em;line-height:1.2;margin:12px 0 14px}
+.proof > p{color:var(--ink-soft);font-size:15px;line-height:1.65}
+.proof .demo{margin-top:auto;padding-top:16px;border-top-width:1px;max-width:none}
+.proof .demo p{font-size:14.5px}
+.proof > p + .demo{margin-top:24px}
+.footnote{margin-top:clamp(56px,7vw,88px);display:grid;gap:24px;padding:clamp(28px,4vw,44px);background:var(--white);border:1px solid var(--rule-strong)}
+@media (min-width:900px){.footnote{grid-template-columns:minmax(0,3fr) minmax(0,5fr);gap:56px;align-items:center}}
+.footnote h3{font-size:clamp(1.3rem,2vw,1.65rem);letter-spacing:-.03em;line-height:1.2}
+.footnote p{color:var(--ink-soft)}
+.footnote p strong{color:var(--navy);font-weight:600}
+
+/* Reasons */
+.reasons{display:grid;border-top:2px solid var(--navy)}
+@media (min-width:760px){.reasons{grid-template-columns:1fr 1fr}}
+@media (min-width:1180px){.reasons{grid-template-columns:repeat(4,1fr)}}
+.reason{padding:36px 32px 40px 0;border-bottom:1px solid rgba(3,40,93,.18);min-width:0}
+@media (min-width:1180px){.reason{border-bottom:0}.reason+.reason{padding-left:32px;border-left:1px solid rgba(3,40,93,.18)}}
+.reason h3{font-size:clamp(1.35rem,2vw,1.6rem);letter-spacing:-.03em;line-height:1.15;margin-bottom:16px;max-width:14ch}
+.reason p{color:#43597d;font-size:15.5px;line-height:1.65}
+
+/* About + founder (home) */
+.about{display:grid;gap:56px}
+@media (min-width:1000px){.about{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:96px;align-items:start}}
+.about__lead{font-size:clamp(1.25rem,2vw,1.6rem);line-height:1.45;letter-spacing:-.02em;color:var(--navy);font-weight:500;max-width:30ch}
+.about__sub{margin-top:24px;font-size:17px;line-height:1.7;letter-spacing:0;font-weight:400;color:var(--ink-soft);max-width:44ch}
+.about__intro .inline-link{margin-top:32px}
+.founder{display:grid;gap:36px;padding-top:44px;border-top:1px solid var(--rule-strong)}
+@media (min-width:700px){.founder{grid-template-columns:220px minmax(0,1fr);gap:48px}}
+.founder__portrait{background:var(--peach);overflow:hidden;border-radius:2px;max-width:260px}
+.founder__portrait img{width:100%;height:auto}
+.founder__name{font-weight:600;font-size:18px;letter-spacing:-.02em;margin-top:18px}
+.founder__role{font-size:14.5px;color:var(--ink-mute);margin-top:2px}
+.founder__body{min-width:0}
+.founder__quote{font-size:clamp(1.35rem,2.2vw,1.85rem);line-height:1.25;letter-spacing:-.03em;font-weight:500;color:var(--navy);padding-left:24px;border-left:2px solid var(--red);max-width:30ch}
+.founder__body > p:not(.founder__quote){margin-top:24px;color:var(--ink-soft);max-width:54ch}
+.founder__creds{display:flex;flex-wrap:wrap;row-gap:4px;margin-top:24px}
+.founder__creds li{font-size:15px;font-weight:500;color:var(--ink-soft)}
+.founder__creds li:not(:last-child)::after{content:"·";margin:0 10px;color:var(--ink-mute)}
+.founder__body .inline-link{margin-top:28px}
+
+/* Closing CTA */
+.closing{padding-block:clamp(112px,14vw,200px)}
+.closing__q{font-size:clamp(2.3rem,5.4vw,4.6rem);line-height:1.02;letter-spacing:-.045em;font-weight:600;max-width:20ch}
+.closing__q em{font-style:normal;color:var(--red-soft)}
+.closing__row{display:grid;gap:32px;margin-top:56px;padding-top:40px;border-top:1px solid var(--navy-line)}
+@media (min-width:860px){.closing__row{grid-template-columns:minmax(0,1fr) auto;align-items:center}}
+.closing__row p{color:var(--on-dark-soft);font-size:clamp(1.05rem,1.4vw,1.25rem);max-width:44ch}
+.closing__actions{display:flex;flex-wrap:wrap;gap:14px}
+
+/* Footer */
+.site-footer{background:var(--navy-deep);color:var(--on-dark);padding-block:clamp(64px,7vw,96px) 40px}
+.site-footer__top{display:grid;gap:48px}
+@media (min-width:860px){.site-footer__top{grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:72px}}
+.site-footer__top > div > p{color:var(--on-dark-soft);margin-top:24px;max-width:36ch;font-size:15px}
+.footer-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:40px}
+.footer-col h2{font-size:14.5px;font-weight:600;letter-spacing:normal;color:var(--on-dark-soft);margin-bottom:18px}
+.footer-col ul{display:grid;gap:12px}
+.footer-col a{font-size:15.5px;border-bottom:1px solid transparent}
+.footer-col a:hover{border-bottom-color:var(--red-soft)}
+.site-footer__bottom{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:72px;padding-top:24px;border-top:1px solid var(--navy-line);font-size:14px;color:var(--on-dark-soft)}
+
+/* Inner pages */
+.page-hero{padding-block:clamp(80px,10vw,150px) clamp(64px,7vw,104px);border-bottom:1px solid var(--rule)}
+.page-hero h1{font-size:clamp(2.8rem,7vw,6rem);line-height:.98;letter-spacing:-.05em;max-width:16ch;margin:28px 0 32px}
+.chapters{display:grid}
+.chapter{display:grid;gap:20px;padding-block:clamp(48px,6vw,80px);border-bottom:1px solid var(--rule-strong)}
+.chapter:first-child{padding-top:0}
+@media (min-width:960px){.chapter{grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:72px}}
+.chapter h2{font-size:clamp(1.8rem,3.2vw,2.6rem);letter-spacing:-.04em;line-height:1.05}
+.chapter__body{display:grid;gap:20px;min-width:0}
+.chapter__body p:not(.founder__quote){color:var(--ink-soft);max-width:58ch}
+.chapter__body p:first-child{color:var(--navy);font-size:clamp(1.1rem,1.5vw,1.3rem);line-height:1.55;font-weight:500}
+.chapter--founder .founder__portrait{margin-top:28px;max-width:240px}
+.page-cta{margin-top:clamp(56px,7vw,88px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;padding:clamp(28px,4vw,44px);background:var(--navy);color:var(--on-dark)}
+.page-cta p{font-size:clamp(1.3rem,2.2vw,1.8rem);font-weight:600;letter-spacing:-.03em;line-height:1.2;max-width:24ch}
+
+/* Contact */
+.contact-grid{display:grid;gap:64px}
+@media (min-width:960px){.contact-grid{grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:96px}}
+.form{display:grid;gap:28px;max-width:640px}
+.form__row{display:grid;gap:28px}
+@media (min-width:640px){.form__row{grid-template-columns:1fr 1fr}}
+.field label{display:block;font-size:14px;font-weight:600;margin-bottom:10px;color:var(--navy)}
+.field input,.field textarea{width:100%;font:inherit;font-size:17px;color:var(--navy);background:var(--white);border:1px solid var(--rule-strong);border-radius:2px;padding:15px 16px;color-scheme:light}
+.field textarea{min-height:180px;resize:vertical}
+.field input:focus-visible,.field textarea:focus-visible{outline:2px solid var(--red);outline-offset:0;border-color:var(--red)}
+.field__hint{margin-top:8px;font-size:13.5px;color:var(--ink-mute)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.form__status{padding:16px 18px;border:1px solid;border-radius:2px;font-size:15px;line-height:1.5}
+.form__status--ok{color:#16573a;background:#eef6f1;border-color:#9dc7ad}
+.form__status--err{color:#8f1a01;background:#fff0eb;border-color:#e9a691}
+.detail-list{display:grid;border-top:2px solid var(--navy)}
+.detail{padding:24px 0;border-bottom:1px solid var(--rule-strong)}
+.detail h3{font-size:14.5px;font-weight:600;letter-spacing:normal;color:var(--ink-mute);margin-bottom:10px}
+.detail a{font-weight:500;border-bottom:1.5px solid var(--red);padding-bottom:2px;overflow-wrap:anywhere}
+.detail p{color:var(--ink-soft);font-size:15.5px}
+</style>
+
+<a class="sr-only" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a aria-label="Eriko AI, home" href="#home" data-go="home"><img src="assets/eriko-logo.svg" alt="Eriko AI" class="wordmark" width="197" height="42"></a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#how-we-work" data-go="home">How we work</a>
+      <a href="#how-it-works" data-go="home">How we build</a>
+      <a href="#systems" data-go="home">Products</a>
+      <a href="#about" data-go="about">About</a>
+      <a class="btn btn-primary" href="#contact" data-go="contact">Contact</a>
+    </nav>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span class="sr-only">Open menu</span></button>
+  </div>
+</header>
+
+<main id="main">
+<div data-view="home">
+
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero__grid">
+      <div>
+        <h1 class="display hero__title">Software, <span class="accent">built differently.</span></h1>
+        <p class="lede">Eriko combines strategy, engineering and AI-native delivery to take complex ideas from blueprint through to implementation. We use the same approach to build our own products.</p>
+        <div class="hero__actions">
+          <a href="#how-it-works" class="btn btn-primary">See how we build<svg class="arrow" width="15" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+          <a class="btn btn-secondary" href="#contact" data-go="contact">Talk to Eriko</a>
+        </div>
+      </div>
+      <figure>
+        <div class="ui" aria-label="Illustrative Eriko delivery screen: activity on Story 04, Identity verification, waiting for a product owner's approval">
+          <div class="ui__bar"><span class="ui__app"><i></i>Eriko</span><span class="ui__crumbs">Delivery / Customer Onboarding / <b>Story 04</b></span><span class="st st--wait">Human approval required</span></div>
+          <div class="ui__body">
+            <p class="ui__eyebrow">Story 04 · Customer Onboarding</p>
+            <h3 class="ui__h">Identity verification</h3>
+            <p class="ui__sub">Outcome: <b>Reduce onboarding completion time</b> · 5 acceptance criteria</p>
+            <ol class="feed">
+              <li class="act"><span class="av"><img src="assets/mascot/av-planner.webp" alt="" width="28" height="28"></span><div><p class="act__who"><b>Story Architect agent</b><span>planning</span><time>09:12</time></p><p class="act__what">Wrote 5 acceptance criteria and split the story into 3 tasks <span class="chip">AC1–AC5</span></p></div></li>
+              <li class="act"><span class="av"><img src="assets/mascot/av-builder.webp" alt="" width="28" height="28"></span><div><p class="act__who"><b>Builder agent</b><span>implementation</span><time>09:46</time></p><p class="act__what">Added licence upload and details match <span class="chip">PR #212</span></p></div></li>
+              <li class="act"><span class="av"><img src="assets/mascot/av-validator.webp" alt="" width="28" height="28"></span><div><p class="act__who"><b>Validation agent</b><span>tests</span><time>10:05</time></p><p class="act__what"><em>1 check failed:</em> an expired licence was accepted <span class="chip">AC2</span></p></div></li>
+              <li class="act"><span class="av"><img src="assets/mascot/av-builder.webp" alt="" width="28" height="28"></span><div><p class="act__who"><b>Builder agent</b><span>remediation</span><time>10:18</time></p><p class="act__what">Fixed the expiry date check and re-ran the suite <span class="chip">48/48 passed</span></p></div></li>
+              <li class="act"><span class="av"><img src="assets/mascot/av-reviewer.webp" alt="" width="28" height="28"></span><div><p class="act__who"><b>Reviewer agent</b><span>independent review</span><time>10:31</time></p><p class="act__what">Implementation matches AC1–AC5. 2 comments resolved</p></div></li>
+            </ol>
+            <div class="handoff">
+              <div class="handoff__text">
+                <p class="handoff__line"><span class="av av--human av--sm">PL</span><span><b>Priya Lal</b> · Product owner</span></p>
+                <p class="handoff__ask">Agent analysis complete. Approve Story 04 for release?</p>
+                <div class="handoff__btns" aria-hidden="true"><span class="ubtn ubtn--primary">Approve release</span><span class="ubtn">Request changes</span></div>
+              </div>
+              <img class="handoff__pose" src="assets/mascot/pose-validator.webp" alt="" width="72" height="72">
+            </div>
+          </div>
+          <div class="ui__foot"><span>Evidence: 14 records · PR #212 · test run 2</span><span>Tue 6 Oct, 10:31 AEST</span></div>
+        </div>
+        <figcaption class="caption">Illustrative interface with sample data</figcaption>
+      </figure>
+    </div>
+    <ul class="hero__caps" aria-label="How the delivery system runs">
+      <li>Specialised agents</li>
+      <li>Parallel execution</li>
+      <li>Continuous validation</li>
+      <li>Evidence as work happens</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section band" id="how-we-work">
+  <div class="container">
+    <div class="head head--split">
+      <div class="head__title">
+        <p class="label">How we work</p>
+        <h2 class="h2">From idea to working system.</h2>
+      </div>
+      <p class="lede">Some organisations come to us with a business problem. Others know what they want to build but need the architecture, delivery approach or implementation capability to make it real. We work across that whole journey.</p>
+    </div>
+
+    <ol class="journey">
+      <li class="stage">
+        <h3>Strategy &amp; Blueprint</h3>
+        <p>Where the solution takes shape before development begins: understanding the business problem and translating it into something that can actually be built.</p>
+        <ul aria-label="Strategy and blueprint areas">
+          <li>Technology &amp; solution strategy</li><li>Data &amp; AI strategy</li><li>Architecture &amp; platform direction</li><li>Customer &amp; marketing technology</li><li>Operating &amp; delivery models</li><li>Implementable blueprints</li>
+        </ul>
+      </li>
+      <li class="stage">
+        <h3>Build &amp; Implement</h3>
+        <p>We design, engineer and implement the solution ourselves. Specialist agents work alongside engineers, coordinated through defined controls, validation and human decision points.</p>
+        <ul aria-label="Build and implement areas">
+          <li>Enterprise applications</li><li>Data &amp; analytics platforms</li><li>AI-enabled systems</li><li>Workflow &amp; operational systems</li><li>Integrations</li>
+        </ul>
+      </li>
+      <li class="stage">
+        <h3>Products &amp; Platforms</h3>
+        <p>The same delivery model builds our own products and reusable systems, so the methods, controls and tooling are exercised on software we are accountable for.</p>
+        <ul aria-label="What this feeds">
+          <li>Own products</li><li>Reusable systems</li><li>Lessons back into client delivery</li>
+        </ul>
+      </li>
+    </ol>
+    <p class="spine">One AI-native delivery system runs through all three.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <p class="label">How we build differently</p>
+    <p class="statement">We have rebuilt the software development lifecycle <em>around what AI agents can now do.</em></p>
+
+    <div class="compare">
+      <div class="compare__col">
+        <span class="tag" style="font-size:14.5px;font-weight:600;color:var(--ink-mute)">The common pattern</span>
+        <h3>An AI coding assistant</h3>
+        <p>One tool helps one person work faster. The hand-offs between stages stay where they were.</p>
+        <div class="lanes" role="img" aria-label="Diagram: sequential stages with hand-offs; the assistant speeds up the development stage only">
+          <div class="lane"><span class="lane__name">Requirements</span><div class="lane__track"><span class="bar bar--soft" style="grid-column:1/4"></span></div></div>
+          <div class="lane"><span class="lane__name">Dev + assistant</span><div class="lane__track"><span class="bar" style="grid-column:4/8"></span></div></div>
+          <div class="lane"><span class="lane__name">Testing</span><div class="lane__track"><span class="bar bar--soft" style="grid-column:8/11"></span></div></div>
+          <div class="lane"><span class="lane__name">Defects back</span><div class="lane__track"><span class="bar bar--soft" style="grid-column:5/8;opacity:.6"></span></div></div>
+          <div class="lane"><span class="lane__name">Release</span><div class="lane__track"><span class="gate" style="grid-column:12"></span></div></div>
+        </div>
+      </div>
+      <div class="compare__col">
+        <span class="tag" style="font-size:14.5px;font-weight:600;color:var(--red-ink)">The Eriko model</span>
+        <h3>A lifecycle redesigned around agents</h3>
+        <p>Different agents take responsibility for different parts of the work within defined boundaries. Work runs concurrently wherever dependencies and risk allow.</p>
+        <div class="lanes" role="img" aria-label="Diagram: planning, two builder agents, an independent reviewer and continuous validation run concurrently, with human decisions at scope and release">
+          <div class="lane"><span class="lane__name">Human decisions</span><div class="lane__track"><span class="gate" style="grid-column:3"></span><span class="gate" style="grid-column:12"></span></div></div>
+          <div class="lane"><span class="lane__name">Planning agent</span><div class="lane__track"><span class="bar" style="grid-column:1/3"></span></div></div>
+          <div class="lane"><span class="lane__name">Builder agent A</span><div class="lane__track"><span class="bar" style="grid-column:4/9"></span></div></div>
+          <div class="lane"><span class="lane__name">Builder agent B</span><div class="lane__track"><span class="bar" style="grid-column:4/7"></span></div></div>
+          <div class="lane"><span class="lane__name">Reviewer agent</span><div class="lane__track"><span class="bar bar--soft" style="grid-column:6/11"></span></div></div>
+          <div class="lane"><span class="lane__name">Validation</span><div class="lane__track"><span class="bar bar--peach" style="grid-column:4/12"></span></div></div>
+          <div class="lane"><span class="lane__name">Remediation</span><div class="lane__track"><span class="bar bar--red" style="grid-column:8/10;height:6px"></span></div></div>
+        </div>
+        <div class="lanes__legend" aria-hidden="true">
+          <span><i></i>Agent execution</span><span><i class="s"></i>Independent review</span><span><i class="p"></i>Continuous validation</span><span><i class="r"></i>Human decision</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="agent-work">
+      <h3>Agents can take meaningful responsibility across the engineering lifecycle.</h3>
+      <div>
+        <ul class="duties">
+          <li><span class="tag">Plan</span>Requirements interpretation</li>
+          <li><span class="tag">Plan</span>Work decomposition</li>
+          <li><span class="tag">Plan</span>Planning</li>
+          <li><span class="tag">Build</span>Implementation</li>
+          <li><span class="tag">Assure</span>Testing</li>
+          <li><span class="tag">Assure</span>Code review</li>
+          <li><span class="tag">Assure</span>Validation</li>
+          <li><span class="tag">Build</span>Remediation</li>
+          <li><span class="tag">Record</span>Documentation</li>
+          <li><span class="tag">Record</span>Evidence</li>
+        </ul>
+        <div class="pair">
+          <p><strong>Checks run as the result is produced.</strong> Failures feed straight into controlled remediation loops, and evidence of what was built, tested and reviewed accumulates as part of delivery.</p>
+          <p><strong>People remain responsible</strong> for product direction, architecture, risk, exceptions, acceptance and release. The aim is to reduce the manual coordination it takes to turn an idea into reliable working software.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section dark">
+  <div class="container">
+    <div class="position">
+      <div>
+        <p class="label">Our position</p>
+        <h2 class="h2">Useful autonomy comes from control, not access.</h2>
+      </div>
+      <p class="position__intro">The common assumption is that AI systems become more useful the more freedom they are given. In practice the opposite holds.</p>
+    </div>
+    <div class="formula" role="img" aria-label="Clear limits plus fast, honest feedback plus independent review equals work you can rely on">
+      <div class="formula__term"><h3>Clear limits on what agents can do</h3></div>
+      <div class="formula__op" aria-hidden="true">+</div>
+      <div class="formula__term"><h3>Fast and honest feedback</h3></div>
+      <div class="formula__op" aria-hidden="true">+</div>
+      <div class="formula__term"><h3>Review by something other than themselves</h3></div>
+      <div class="formula__op" aria-hidden="true">=</div>
+      <div class="formula__result"><h3>Work you can rely on</h3></div>
+    </div>
+    <div class="position__foot">
+      <p>Widening access without those things produces more output and less certainty.</p>
+      <p>We design for the limits first. It is the less exciting half of the problem, and it is the half that decides whether any of this can be trusted with work that matters.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="what-we-do">
+  <div class="container">
+    <div class="head head--split">
+      <div class="head__title">
+        <h2 class="h2">Four responsibilities make the work dependable.</h2>
+      </div>
+      <p class="lede">Taken apart these are familiar ideas. Built into the development process as one system, they change how much of the engineering lifecycle can run without manual intervention.</p>
+    </div>
+    <div class="quad">
+      <div class="quad__cell">
+        <p class="quad__term">Control</p>
+        <h3 class="quad__q">What is allowed?</h3>
+        <p>Control sets the boundary: what an agent may act on, what it may spend, and which decisions have to come back to a person. Permissions do not widen just because a task is already running.</p>
+      </div>
+      <div class="quad__cell">
+        <p class="quad__term">Orchestration</p>
+        <h3 class="quad__q">What happens next?</h3>
+        <p>Orchestration carries work between agents, people and systems, runs independent work in parallel, pauses it when a dependency changes, and makes delays and pending decisions visible.</p>
+      </div>
+      <div class="quad__cell">
+        <p class="quad__term">Evidence</p>
+        <h3 class="quad__q">Why trust the result?</h3>
+        <p>The checks, versions, failures and decisions are recorded as the work happens, so a reviewer can judge a result instead of reconstructing it from a conversation.</p>
+      </div>
+      <div class="quad__cell">
+        <p class="quad__term">Human authority</p>
+        <h3 class="quad__q">Who is accountable?</h3>
+        <p>The people who own the outcome keep product direction, architecture, risk, acceptance and release. Agents do not approve their own work, and automated progress never quietly becomes permission.</p>
+      </div>
+      <div class="quad__hub" aria-hidden="true">Dependable work</div>
+    </div>
+  </div>
+</section>
+
+<section class="section dark" id="how-it-works">
+  <div class="container">
+    <div class="head head--split">
+      <div class="head__title">
+        <p class="label">The delivery system</p>
+        <h2 class="h2">A continuous engineering model.</h2>
+      </div>
+      <p class="lede">Traditional delivery is a series of human hand-offs, with work moving backwards and forwards until it is ready to release. In our model, AI is part of how work is planned, executed, checked and evidenced from the start.</p>
+    </div>
+
+    <div class="flow">
+      <div class="flow__inner">
+        <div class="phases" aria-hidden="true">
+          <div class="phase" style="grid-column:span 2">Intent</div>
+          <div class="phase phase--key" style="grid-column:span 3">Execution</div>
+          <div class="phase" style="grid-column:span 2">Assurance</div>
+          <div class="phase" style="grid-column:span 1">Outcome</div>
+        </div>
+        <ol class="track">
+          <li class="node"><span class="tag">01</span><strong>Business outcome</strong></li>
+          <li class="node"><span class="tag">02</span><strong>Planning</strong></li>
+          <li class="node"><span class="tag">03</span><strong>Specialist agents</strong></li>
+          <li class="node"><span class="tag">04</span><strong>Orchestration</strong></li>
+          <li class="node node--key"><span class="tag">05</span><strong>Controls and human decisions</strong></li>
+          <li class="node"><span class="tag">06</span><strong>Continuous validation</strong></li>
+          <li class="node"><span class="tag">07</span><strong>Evidence</strong></li>
+          <li class="node node--end"><span class="tag">08</span><strong>Delivered outcome</strong></li>
+        </ol>
+        <div class="loop" aria-hidden="true"><div class="loop__shape"></div><p class="loop__label">Failures feed back into controlled remediation</p></div>
+        <p class="loop-mobile">Failures at validation feed back into controlled remediation, not another manual cycle.</p>
+      </div>
+    </div>
+
+    <div class="notes">
+      <div class="note">
+        <span class="note__phase">01–02</span>
+        <h3>Intent</h3>
+        <p class="lead">Work starts from the outcome that has to be delivered.</p>
+        <p>Planning decomposes the requirement into work agents can execute reliably, with scope, limits and success made explicit. The method can change as the team learns; what counts as success cannot change quietly.</p>
+      </div>
+      <div class="note">
+        <span class="note__phase">03–05</span>
+        <h3>Execution</h3>
+        <p class="lead">Different agents own different parts of the engineering work.</p>
+        <p>Independent work proceeds concurrently where dependencies allow. Agents continue through defined engineering loops without a person initiating every step, while approvals sit inside execution rather than after it.</p>
+      </div>
+      <div class="note">
+        <span class="note__phase">06–07</span>
+        <h3>Assurance</h3>
+        <p class="lead">Testing and deterministic validation run throughout the work.</p>
+        <p>The agent responsible for implementation is not the one that decides whether the result is correct. Failures feed into controlled remediation, and evidence of what was checked accumulates as work proceeds.</p>
+      </div>
+      <div class="note">
+        <span class="note__phase">08</span>
+        <h3>Outcome</h3>
+        <p class="lead">Working software, together with the record of how it was built, tested and reviewed.</p>
+        <p>Most of the time saved comes from removing the manual hand-offs and pauses that sit between every stage of a conventional lifecycle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section band" id="systems">
+  <div class="container">
+    <div class="head head--split">
+      <div class="head__title">
+        <p class="label">Products</p>
+        <h2 class="h2">One method. Different software.</h2>
+      </div>
+      <p class="lede">We use the same approach on our own software as on client work. The software is different in each case. The approach to execution, validation and control stays the same.</p>
+    </div>
+
+    <article class="product">
+      <div class="product__text">
+        <p class="product__kind">Production SaaS · Regulated care</p>
+        <h3 class="product__name">Auditly</h3>
+        <p>Operational compliance and quality management software for regulated service organisations, covering quality management, incident management, policy management, identity and access, analytics and wider platform work.</p>
+        <p>Delivery combines structured requirements, agent execution, automated testing, independent review and controlled promotion through development, QA and production.</p>
+        <div class="demo"><p>The model operates inside a substantial production SaaS platform where reliability, security, data integrity and controlled change matter.</p></div>
+      </div>
+      <figure>
+        <div class="ui" aria-label="Illustrative Eriko delivery screen: Auditly release 4.12 in QA, with stories, checks and a reviewer comment">
+          <div class="ui__bar"><span class="ui__app"><i></i>Eriko</span><span class="ui__crumbs">Delivery / Auditly / <b>Release 4.12</b></span><span class="st st--prog">In QA</span></div>
+          <div class="ui__body">
+            <p class="ui__eyebrow">Auditly · Release 4.12</p>
+            <h3 class="ui__h">Incident and policy updates</h3>
+            <div class="pipe" aria-label="Promotion path">
+              <div class="pipe__step pipe__step--done"><b>Development</b><span>4 of 4 merged · 2 Oct</span></div>
+              <div class="pipe__step pipe__step--now"><b>QA</b><span>3 of 4 passed · now</span></div>
+              <div class="pipe__step pipe__step--gate"><b>Production</b><span>Release manager approval</span></div>
+            </div>
+            <table class="utable">
+              <thead><tr><th>Story</th><th>Title</th><th class="hide-sm">Agent</th><th class="hide-sm">Checks</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td class="id">AUD-311</td><td>Filter incident register by severity</td><td class="hide-sm"><span class="av av--sm"><img src="assets/mascot/av-builder.webp" alt="" width="28" height="28"></span></td><td class="num hide-sm">62/62</td><td><span class="st st--ok">Passed</span></td></tr>
+                <tr><td class="id">AUD-318</td><td>Policy acknowledgement reminders</td><td class="hide-sm"><span class="av av--sm"><img src="assets/mascot/av-builder.webp" alt="" width="28" height="28"></span></td><td class="num hide-sm">41/41</td><td><span class="st st--ok">Passed</span></td></tr>
+                <tr class="is-sel"><td class="id">AUD-322</td><td>Site-scoped access for site leads</td><td class="hide-sm"><span class="av av--sm"><img src="assets/mascot/av-reviewer.webp" alt="" width="28" height="28"></span></td><td class="num hide-sm">37/38</td><td><span class="st st--fail">Changes requested</span></td></tr>
+                <tr><td class="id">AUD-326</td><td>Export incident trends to CSV</td><td class="hide-sm"><span class="av av--sm"><img src="assets/mascot/av-builder.webp" alt="" width="28" height="28"></span></td><td class="num hide-sm">29/29</td><td><span class="st st--ok">Passed</span></td></tr>
+              </tbody>
+            </table>
+            <div class="comment"><span class="av"><img src="assets/mascot/av-reviewer.webp" alt="" width="28" height="28"></span><div><p class="act__who"><b>Reviewer agent</b><span>on AUD-322</span><time>11:02</time></p><p>Site leads can see incidents from other sites when they filter by date. Add the site scope to the date query and a test that covers it.</p><small>Returned to Builder agent · blocks promotion to Production</small></div></div>
+          </div>
+        </div>
+        <figcaption class="caption">Illustrative interface with sample data</figcaption>
+      </figure>
+    </article>
+
+    <article class="product product--flip">
+      <div class="product__text">
+        <p class="product__kind">Governed agentic system · Delivery</p>
+        <h3 class="product__name">Story Architect</h3>
+        <p>A governed agentic system that turns business intent into structured, validated delivery work, using explicit validation rules, evidence generation, independent review and integration into development workflows.</p>
+        <p>It is becoming part of the wider delivery system, improving the transition from intent into work agents can execute reliably.</p>
+        <div class="demo"><p>Here the methodology itself becomes software, so it no longer depends on the people applying it.</p></div>
+      </div>
+      <figure>
+        <div class="ui" aria-label="Illustrative Story Architect screen: business intent broken into stories, with Story 04 acceptance criteria and validation">
+          <div class="ui__bar"><span class="ui__app"><i></i>Story Architect</span><span class="ui__crumbs">Customer Onboarding / <b>Story 04</b></span><span class="st st--prog">Ready for review</span></div>
+          <div class="sa">
+            <div class="sa__side">
+              <p class="ui__eyebrow">Business intent</p>
+              <div class="intent"><p>Reduce onboarding completion time from 5 days to same day.</p><small><span class="av av--human av--sm">PL</span>Priya Lal · Product owner</small></div>
+              <ul class="stories">
+                <li><span class="n">01</span>Account details form<span class="mk"></span></li>
+                <li><span class="n">02</span>Email verification<span class="mk"></span></li>
+                <li><span class="n">03</span>Document upload<span class="mk"></span></li>
+                <li class="on"><span class="n">04</span>Identity verification<span class="mk mk--rev"></span></li>
+                <li><span class="n">05</span>Welcome sequence<span class="mk mk--draft"></span></li>
+              </ul>
+            </div>
+            <div class="sa__main">
+              <p class="ui__eyebrow">Story 04 · User story</p>
+              <p class="us">As a new customer, I want to verify my identity online, so I can start using my account the same day.</p>
+              <p class="ui__eyebrow" style="margin-top:14px">Acceptance criteria</p>
+              <ol class="ac">
+                <li><b>AC1</b><span><strong>Given</strong> a current driver licence, <strong>when</strong> the details match, <strong>then</strong> the account is verified.</span></li>
+                <li><b>AC2</b><span><strong>Given</strong> an expired licence, <strong>then</strong> verification is declined with the reason shown.</span></li>
+                <li><b>AC3</b><span><strong>Given</strong> three failed attempts, <strong>then</strong> the case moves to manual review.</span></li>
+              </ol>
+              <div class="rules" aria-label="Validation rules"><span class="st st--ok">Testable</span><span class="st st--ok">Depends on Story 03</span><span class="st st--ok">Within scope</span><span class="st st--wait">Independent review</span></div>
+              <div class="sa__foot"><span class="av"><img src="assets/mascot/av-planner.webp" alt="" width="28" height="28"></span><span><b>Story Architect agent</b> · analysis complete · Mon 5 Oct, 14:20</span></div>
+            </div>
+          </div>
+        </div>
+        <figcaption class="caption">Illustrative interface with sample data</figcaption>
+      </figure>
+    </article>
+
+    <div class="proof-head">
+      <h3>Built the same way</h3>
+      <p class="label" style="color:var(--ink-mute)">Three more applications</p>
+    </div>
+    <div class="proofs">
+      <article class="proof">
+        <span class="tag">Events &amp; venues</span>
+        <h4>Event management platform</h4>
+        <p>A guest invitation use case that expanded quickly into event and venue management: RSVP workflows, table and capacity management, seating allocation and a visual seating planner.</p>
+        <div class="demo"><p>It shows how far the development cycle compresses when agents, context, validation and controls operate together from the start.</p></div>
+      </article>
+      <article class="proof">
+        <span class="tag">Media engineering</span>
+        <h4>Encore</h4>
+        <p>Audio analysis and processing, timing, transitions, loudness management and automated mix generation, built with separate implementation and review responsibilities.</p>
+        <div class="demo"><p>The approach extends well beyond web applications and business SaaS into specialised computational engineering.</p></div>
+      </article>
+      <article class="proof">
+        <span class="tag">Real-time multiplayer</span>
+        <h4>Category Game</h4>
+        <p>A consumer application built with separate builder, reviewer and validation responsibilities, including browser, multiplayer lifecycle and accessibility testing.</p>
+        <div class="demo"><p>The model applies to interactive consumer software, where real-time behaviour and experience decide whether it is any good.</p></div>
+      </article>
+    </div>
+
+    <div class="footnote">
+      <h3>The harder problem moves from generating work to controlling it.</h3>
+      <p>As more of the engineering lifecycle runs on its own, we are building the operating layer for managing work, agents, validation, evidence and delivery controls. Other Eriko products, including <strong>KontextGo</strong> and <strong>Salaamah</strong>, are built the same way.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section peach">
+  <div class="container">
+    <div class="head">
+      <div class="head__title">
+        <h2 class="h2">Why organisations work with Eriko.</h2>
+      </div>
+    </div>
+    <div class="reasons">
+      <div class="reason"><h3>Advice that ends in working software</h3><p>We design, engineer and implement the systems we recommend rather than stopping at a strategy document.</p></div>
+      <div class="reason"><h3>Governed by design</h3><p>Controls, approvals and accountability are built into how the work executes from the first step.</p></div>
+      <div class="reason"><h3>Proven on our own products</h3><p>The delivery model is exercised through real product development, so it is tested on software we are accountable for.</p></div>
+      <div class="reason"><h3>Evidence as work happens</h3><p>Validation, decisions and delivery evidence are captured during execution, so they are ready when a review needs them.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="founder">
+  <div class="container">
+    <div class="about">
+      <div class="about__intro">
+        <p class="label" style="margin-bottom:28px">About Eriko</p>
+        <p class="about__lead">We work in the space between what AI can demonstrably do and what an organisation can actually put its name to.</p>
+        <p class="about__sub">Eriko AI combines enterprise technology experience with hands-on development of the delivery systems we use to build software. The work is practical: systems that run, controls that hold under pressure, and results that can be accounted for.</p>
+        <a class="inline-link" href="#about" data-go="about">More about Eriko<svg class="arrow" width="15" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+      </div>
+      <div>
+        <p class="label" style="margin-bottom:28px">Founder</p>
+        <div class="founder">
+          <div>
+            <div class="founder__portrait"><img src="assets/sabeh-hassan.webp" alt="Sabeh Hassan, Founder and CEO of Eriko AI" width="540" height="675"></div>
+            <p class="founder__name">Sabeh Hassan</p>
+            <p class="founder__role">Founder &amp; CEO</p>
+          </div>
+          <div class="founder__body">
+            <p class="founder__quote">If AI can now perform a significant proportion of the work involved in software engineering, why should the development process around it remain largely unchanged?</p>
+            <p>Eriko grew from that recurring question. Sabeh has spent his career across technology, consulting, data, transformation and product development, from large enterprise transformation programs to building products and businesses from the ground up.</p>
+            <ul class="founder__creds" aria-label="Experience"><li>Microsoft</li><li>Deloitte</li><li>DXC</li><li>Executive MBA, AGSM at UNSW</li></ul>
+            <a class="inline-link" href="https://www.sabehhassan.com" target="_blank" rel="noreferrer noopener">More about Sabeh<svg class="arrow" width="15" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark closing">
+  <div class="container">
+    <h2 class="closing__q">What could your delivery model look like if AI was part of the <em>operating system</em>?</h2>
+    <div class="closing__row">
+      <p>If that question is already live in your organisation, we would be glad to talk about where it leads.</p>
+      <div class="closing__actions">
+        <a class="btn btn-primary" href="#contact" data-go="contact">Talk to Eriko<svg class="arrow" width="15" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+        <a class="btn btn-ghost-dark" href="#how-it-works">See the delivery system</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<div data-view="about" hidden>
+<section class="page-hero">
+  <div class="container">
+    <p class="label">About</p>
+    <h1>We build software, and a different way of building it.</h1>
+    <p class="lede" style="max-width:52ch">Eriko AI combines enterprise technology experience with hands-on development of the agentic delivery systems we use to build our own products.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="chapters">
+      <div class="chapter">
+        <h2>What we are building</h2>
+        <div class="chapter__body">
+          <p>Eriko builds software and products, and in doing so is developing a new operating model for how software engineering can be performed when AI agents carry out a significant proportion of the execution.</p>
+          <p>Agents take responsibility for different parts of the engineering lifecycle, work runs concurrently where dependencies allow, validation runs throughout, and evidence accumulates as part of delivery.</p>
+          <p>The premise is straightforward. Most organisations can already get useful output from AI agents. What they cannot easily get is a dependable account of what happened, what needs their attention, and whether the result can be trusted. That gap is where the time goes, and it is a system problem rather than a people problem.</p>
+        </div>
+      </div>
+      <div class="chapter">
+        <h2>What we think is true</h2>
+        <div class="chapter__body">
+          <p>Useful autonomy comes from control rather than access.</p>
+          <p>Agents produce work you can rely on when they operate inside clear limits, get fast and honest feedback, and are reviewed by something other than themselves.</p>
+          <p>We are deliberate about what we claim. Agentic systems are genuinely useful today in bounded, well-specified work with real validation. They are not a substitute for accountable human decisions, and we do not design them as though they were. The controls exist because the work they govern has consequences.</p>
+        </div>
+      </div>
+      <div class="chapter">
+        <h2>How we work</h2>
+        <div class="chapter__body">
+          <p>We apply the approach to our own delivery before we apply it anywhere else.</p>
+          <p>The software we build is both the product of the method and the place where we find out where it does not yet hold.</p>
+          <p>That shows up in the work: software and technology delivery, turning business intent into work technology teams can execute, governed workflows for regulated operations, and operational systems built around combinations of agents, automation and human decisions.</p>
+        </div>
+      </div>
+      <div class="chapter">
+        <h2>Where we are based</h2>
+        <div class="chapter__body"><p>Eriko AI is an Australian company.</p></div>
+      </div>
+      <div class="chapter chapter--founder">
+        <div>
+          <h2>Sabeh Hassan</h2>
+          <p class="founder__role" style="margin-top:12px">Founder &amp; CEO</p>
+          <div class="founder__portrait"><img src="assets/sabeh-hassan.webp" alt="Sabeh Hassan, Founder and CEO of Eriko AI" width="540" height="675"></div>
+        </div>
+        <div class="chapter__body">
+          <p>Sabeh has spent his career working across technology, consulting, data, transformation and product development, including experience with Microsoft, Deloitte and DXC.</p>
+          <p>That work has spanned large enterprise transformation programs, technology strategy and architecture, data and customer platforms, alongside building products and businesses from the ground up.</p>
+          <p class="founder__quote" style="margin-block:12px">Eriko grew from a recurring question. If AI can now perform a significant proportion of the work involved in software engineering, why should the development process around it remain largely unchanged?</p>
+          <p>Eriko has been building a development model where agents take responsibility for substantial parts of planning, implementation, testing, review and validation, while engineering controls and human judgement stay around the decisions that matter.</p>
+          <p>The approach has been developed through building real products, learning where greater autonomy works, where stronger controls are required, and how the engineering lifecycle itself needs to change as AI capabilities improve.</p>
+          <p>Sabeh holds an Executive MBA from AGSM at UNSW and continues to work across AI strategy, operating models, data and product development.</p>
+          <p><a class="inline-link" href="https://www.sabehhassan.com" target="_blank" rel="noreferrer noopener">More about Sabeh<svg class="arrow" width="15" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></p>
+        </div>
+      </div>
+    </div>
+    <div class="page-cta">
+      <p>Talk to us about the work you are trying to deliver.</p>
+      <a class="btn btn-primary" href="#contact" data-go="contact">Talk to Eriko<svg class="arrow" width="15" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+    </div>
+  </div>
+</section>
+</div>
+
+
+<div data-view="contact" hidden>
+<section class="page-hero">
+  <div class="container">
+    <h1>Talk to Eriko.</h1>
+    <p class="lede" style="max-width:50ch">Tell us about the work you are trying to deliver and we will come back to you. We are equally happy to talk through whether this approach fits before anyone commits to anything.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="contact-grid">
+      <form class="form" name="contact" method="POST" data-netlify="true" netlify-honeypot="website" novalidate>
+        <input type="hidden" name="form-name" value="contact">
+        <div class="form__row">
+          <div class="field"><label for="cf-name">Your name</label><input id="cf-name" autocomplete="name" name="name"></div>
+          <div class="field"><label for="cf-org">Organisation</label><input id="cf-org" autocomplete="organization" name="organisation"></div>
+        </div>
+        <div class="field"><label for="cf-email">Email</label><input id="cf-email" type="email" autocomplete="email" name="email"></div>
+        <div class="field"><label for="cf-message">What are you working on?</label><textarea id="cf-message" name="message" aria-describedby="cf-message-hint"></textarea><p class="field__hint" id="cf-message-hint">A short description of the work or the problem is plenty.</p></div>
+        <div class="hp" aria-hidden="true"><label for="cf-website">Website</label><input id="cf-website" tabindex="-1" autocomplete="off" name="website"></div>
+        <div><button type="submit" class="btn btn-primary">Send message<svg class="arrow" width="15" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><p class="field__hint">We only use these details to reply to your enquiry.</p></div>
+      </form>
+      <div>
+        <div class="detail-list">
+          <div class="detail"><h3>LinkedIn</h3><p><a href="https://www.linkedin.com/company/eriko-ai" target="_blank" rel="noreferrer noopener">linkedin.com/company/eriko-ai</a></p></div>
+          <div class="detail"><h3>Response</h3><p>Messages sent through this form reach the team directly.</p></div>
+          <div class="detail"><h3>Based in</h3><p>Australia</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__top">
+      <div>
+        <img src="assets/eriko-logo-light.svg" alt="Eriko AI" class="wordmark" width="197" height="42" style="height:32px">
+        <p>Eriko combines strategy, engineering and AI-native delivery to take complex ideas from blueprint through to implementation, and uses the same approach to build its own products.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col"><h2>The model</h2><ul><li><a href="#how-we-work" data-go="home">How we work</a></li><li><a href="#how-it-works" data-go="home">How we build</a></li><li><a href="#systems" data-go="home">Products</a></li></ul></div>
+        <div class="footer-col"><h2>Company</h2><ul><li><a href="#about" data-go="about">About Eriko</a></li><li><a href="#contact" data-go="contact">Contact</a></li></ul></div>
+        <div class="footer-col"><h2>Elsewhere</h2><ul><li><a href="https://www.linkedin.com/company/eriko-ai" target="_blank" rel="noreferrer noopener">LinkedIn</a></li></ul></div>
+      </div>
+    </div>
+    <div class="site-footer__bottom"><span>© 2026 Eriko AI</span><span>Australia</span></div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var views = Array.prototype.slice.call(document.querySelectorAll('[data-view]'));
+
+  function show(name, anchor) {
+    views.forEach(function (v) { v.hidden = v.getAttribute('data-view') !== name; });
+    if (anchor) {
+      var target = document.getElementById(anchor);
+      if (target) { target.scrollIntoView({ behavior: 'instant', block: 'start' }); return; }
+    }
+    window.scrollTo(0, 0);
+  }
+
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    e.preventDefault();
+    var go = a.getAttribute('data-go');
+    var hash = a.getAttribute('href').slice(1);
+    closeNav();
+    if (go) {
+      show(go, go === 'home' && hash !== 'home' ? hash : null);
+    } else {
+      var t = document.getElementById(hash);
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+
+  // Mobile navigation
+  var toggle = document.querySelector('.nav-toggle');
+  var header = document.querySelector('.site-header');
+  var panel = null;
+
+  function closeNav() {
+    if (!panel) return;
+    panel.remove();
+    panel = null;
+    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      if (panel) { closeNav(); return; }
+      panel = document.createElement('div');
+      panel.className = 'mobile-nav';
+      panel.id = 'mobile-nav';
+      var links = Array.prototype.map.call(
+        document.querySelectorAll('.site-nav a'),
+        function (a) {
+          return '<a href="' + a.getAttribute('href') + '"' +
+            (a.getAttribute('data-go') ? ' data-go="' + a.getAttribute('data-go') + '"' : '') +
+            (a.className ? ' class="' + a.className + '"' : '') + '>' + a.textContent + '</a>';
+        }
+      ).join('');
+      panel.innerHTML = '<div class="container">' + links + '</div>';
+      header.appendChild(panel);
+      toggle.setAttribute('aria-expanded', 'true');
+    });
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeNav();
+  });
+
+  // Contact form: submitted to Netlify Forms, which only receives it on the Netlify-hosted site.
+  var form = document.querySelector('.form');
+  if (form) {
+    var submit = form.querySelector('button[type="submit"]');
+
+    function report(ok, text) {
+      var old = form.querySelector('.form__status');
+      if (old) old.remove();
+      var note = document.createElement('p');
+      note.className = 'form__status ' + (ok ? 'form__status--ok' : 'form__status--err');
+      note.setAttribute('role', 'status');
+      note.textContent = text;
+      form.insertBefore(note, form.lastElementChild);
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var data = new FormData(form);
+      var bad = [];
+      if (!String(data.get('name') || '').trim()) bad.push('your name');
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(String(data.get('email') || ''))) bad.push('an email address');
+      if (String(data.get('message') || '').trim().length < 10) bad.push('a short description');
+      if (bad.length) { report(false, 'Please add ' + bad.join(', ') + '.'); return; }
+
+      submit.disabled = true;
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(data).toString()
+      }).then(function (res) {
+        if (!res.ok) throw new Error(res.status);
+        form.reset();
+        report(true, 'Thanks, your message has been sent. We will be in touch soon.');
+      }).catch(function () {
+        report(false, 'Sorry, your message could not be sent. Please try again, or contact us on LinkedIn.');
+      }).then(function () {
+        submit.disabled = false;
+      });
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
